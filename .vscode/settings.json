@@ -1,0 +1,11 @@
+{
+  "[julia]": {
+    "editor.defaultFormatter": "julialang.language-julia"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "files.eol": "\n",
+  "rewrap.wrappingColumn": 88
+}
