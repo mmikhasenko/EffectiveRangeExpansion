@@ -3,27 +3,20 @@ using Parameters
 using Test
 
 import EffectiveRangeExpansion: fm_times_mev
-#
-const mπ⁰ = 0.1349768
-const mπ⁺ = 0.13957039
-const mD⁰ = 1.86483
-const mD⁺ = 1.86965
-# 
-const mDˣ⁺ = 1.86483+145.4258e-3 # m(D) + Δm(D*,D) from PDG
-const mDˣ⁰ = 2.00685
-# 
-const ΓDˣ⁺ = 83.4e-6
-const ΓDˣ⁰ = 55.2e-6
 
-e2m(e) = (mD⁰+mDˣ⁺)+e*1e-3
-m2e(m) = (m-mD⁰-mDˣ⁺)*1e3
 
-function k3b(e)
-    m = e2m(e)
-    M = sqrt(mDˣ⁺^2-1im*mDˣ⁺*ΓDˣ⁺) # taken at the Dˣ⁺ pole
-    p = cis(π/4)*sqrt((m-(M+mD⁰))*cis(-π/2))*
-        sqrt(m+(M+mD⁰))*sqrt(m-(M-mD⁰))*sqrt(m+(M-mD⁰))/(2*m)  # branch cut down
-    return p
+@testset "Break-up Rotate Cut" begin
+    a,b = breakuprotatecut.((3-0.1im) .+ 1e-3 .*[-1,1]; m1=1, m2=2, ϕ=-π / 2)
+    @test isapprox(-a, b; rtol=0.02) # 2%
+end
+
+
+
+@testset "ERP implementes a⁻¹ + r/2*k^2-1im*k" begin
+    a⁻¹, r = 0.1, 4.2
+    erp0 = ERP(; a⁻¹, r, N=1.0) # a⁻¹ + r/2*k^2-1im*k
+    @test erp0(0) == a⁻¹
+    @test erp0(1)-erp0(-1) == -2im
 end
 
 
@@ -34,10 +27,18 @@ end
     a⁻¹ = 1 / (a₀_fm / (1e-3*fm_times_mev))
     r = r₀_fm / (1e-3*fm_times_mev)
     #
-    k = k3b
+    mD⁰ = 1.86483
+    mDˣ⁺ = 1.86483+145.4258e-3 # m(D) + Δm(D*,D) from PDG
+    ΓDˣ⁺ = 83.4e-6
+
+    e2m(e) = (mD⁰+mDˣ⁺)+e*1e-3
+    k(e) = breakuprotatecut(e2m(e);
+        m1=sqrt(mDˣ⁺^2-1im*mDˣ⁺*ΓDˣ⁺), m2=mD⁰)
+    # 
     D(e) = a⁻¹ + r/2*k(e)^2-1im*k(e)
     #
-    # expansion is at 
+    # expansion is at
+    m2e(m) = (m - mD⁰-mDˣ⁺)*1e3
     Eᵦ = m2e(sqrt(mDˣ⁺^2 - 1im * mDˣ⁺ * ΓDˣ⁺) + mD⁰)
     # 
     effrangepars = 

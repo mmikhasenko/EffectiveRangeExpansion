@@ -1,4 +1,4 @@
-@with_kw struct ERP{T<:Number} # Effective Range Parameters
+@with_kw_noshow struct ERP{T<:Number} # Effective Range Parameters
     N::T
     a⁻¹::T
     r::T
