@@ -25,10 +25,14 @@ to obtained a named tuple `(; a⁻¹, r, N)`.
 
 The method parameter adjusts the algorithm. The `ComplexBranchPointExpansion(CircularIntegral(r))` is the default option.
 A discrete version of the integral is available to speed up the calculation.
-```
+```julia
+struct CircularIntegral <: CircularIntegralMethod
+    r::Real
+end
+#
 struct CircularSum <: CircularIntegralMethod
     r::Real
     N::Int
 end
-
+```
 
