@@ -1,7 +1,7 @@
 
 const fm_times_mev = 197.3269804
 
-function tophysicsunits(p::NamedTuple)
+function tophysicsunits(p::Union{ERP,NamedTuple})
     @unpack a⁻¹, r = p
     a_fm = 1e-3 * fm_times_mev / real(p.a⁻¹)
     r_fm = 1e-3 * fm_times_mev * p.r
