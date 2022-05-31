@@ -10,8 +10,11 @@ export circleintegral
 export cauchyintegral, cauchyintegral′, cauchyintegral′′
 export CircularIntegralMethod
 export CircularIntegral, CircularSum
+include("integrals.jl")
+
 export EffectiveRangeExpansionMethod, ComplexBranchPointExpansion
 export effectiverangeexpansion
-include("integrals.jl")
+include("expansion.jl")
+
 
 end
