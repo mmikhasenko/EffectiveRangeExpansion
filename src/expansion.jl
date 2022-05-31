@@ -25,5 +25,5 @@ function effectiverangeexpansion(f, k, method::EffectiveRangeExpansionMethod)
     a⁻¹ = f̂₀
     r = 2 * f̂′ / k²′
     #
-    return (; a⁻¹, r, N)
+    return (; a⁻¹, r, N, method)
 end
