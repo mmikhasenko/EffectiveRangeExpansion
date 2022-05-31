@@ -16,5 +16,7 @@ export EffectiveRangeExpansionMethod, ComplexBranchPointExpansion
 export effectiverangeexpansion
 include("expansion.jl")
 
+export ERP
+include("parameters.jl")
 
 end
