@@ -2,6 +2,8 @@
 
 The package provides tools to numerically estimate the scattering length and effective range for given amplitude.
 
+Details of the calculation are described in [this paper](https://inspirehep.net/literature/2048996).
+
 ## Definition
 The expansion series reads:
 
